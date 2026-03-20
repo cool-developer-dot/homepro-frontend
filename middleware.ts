@@ -3,13 +3,23 @@ import type { NextRequest } from "next/server";
 import { env } from "@/lib/env";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/booking", "/profile"];
-const AUTH_API_BASE = (process.env.NEXT_PUBLIC_API_URL || "https://homepro-backend-ddeh.onrender.com").replace(/\/$/, "");
+
+function getAuthApiBaseUrl(req: NextRequest) {
+  const envUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
+  if (envUrl) return envUrl.replace(/\/$/, "");
+
+  const host = req.nextUrl.hostname;
+  if (host === "localhost" || host === "127.0.0.1") return "http://localhost:4000";
+
+  return "https://homepro-backend-ddeh.onrender.com";
+}
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const isProtected = PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
   if (!isProtected) return NextResponse.next();
 
+  const AUTH_API_BASE = getAuthApiBaseUrl(req).replace(/\/$/, "");
   const token = req.cookies.get(env.AUTH_COOKIE_NAME)?.value;
   if (!token) {
     const url = req.nextUrl.clone();

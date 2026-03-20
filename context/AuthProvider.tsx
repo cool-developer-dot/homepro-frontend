@@ -20,7 +20,21 @@ type AuthContextValue = {
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
-const AUTH_API_BASE = (process.env.NEXT_PUBLIC_API_URL || "https://homepro-backend-ddeh.onrender.com").replace(/\/$/, "");
+
+function getAuthApiBaseUrl() {
+  const envUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
+  if (envUrl) return envUrl;
+
+  // Local dev convenience.
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") return "http://localhost:4000";
+  }
+
+  return "https://homepro-backend-ddeh.onrender.com";
+}
+
+const AUTH_API_BASE = getAuthApiBaseUrl().replace(/\/$/, "");
 
 async function safeJson(res: Response) {
   try {
