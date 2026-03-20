@@ -136,7 +136,7 @@ export function useProfile(authUser: { fullName?: string; email?: string } | nul
       const form = new FormData();
       form.append("avatar", file);
 
-      const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") || "http://localhost:4000";
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") || "https://homepro-backend-ddeh.onrender.com";
       const res = await fetch(`${baseUrl}/api/profile/upload-avatar`, {
         method: "POST",
         body: form,

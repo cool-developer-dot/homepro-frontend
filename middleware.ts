@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { env } from "@/lib/env";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/booking", "/profile"];
-const AUTH_API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000").replace(/\/$/, "");
+const AUTH_API_BASE = (process.env.NEXT_PUBLIC_API_URL || "https://homepro-backend-ddeh.onrender.com").replace(/\/$/, "");
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;

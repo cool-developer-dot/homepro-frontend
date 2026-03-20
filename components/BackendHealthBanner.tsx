@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AlertTriangle, PlugZap } from "lucide-react";
 
 function getApiBaseUrl() {
-  return process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") || "http://localhost:4000";
+  return process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") || "https://homepro-backend-ddeh.onrender.com";
 }
 
 export default function BackendHealthBanner() {

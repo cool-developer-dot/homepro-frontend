@@ -20,7 +20,7 @@ type AuthContextValue = {
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
-const AUTH_API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000").replace(/\/$/, "");
+const AUTH_API_BASE = (process.env.NEXT_PUBLIC_API_URL || "https://homepro-backend-ddeh.onrender.com").replace(/\/$/, "");
 
 async function safeJson(res: Response) {
   try {

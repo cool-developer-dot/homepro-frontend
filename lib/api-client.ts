@@ -12,7 +12,7 @@ type RequestOptions = {
 };
 
 function getBaseUrl() {
-  return process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || "";
+  return process.env.NEXT_PUBLIC_API_URL?.trim() || "https://homepro-backend-ddeh.onrender.com";
 }
 
 export async function apiRequest<TResponse>(
