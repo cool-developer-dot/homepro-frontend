@@ -12,7 +12,17 @@ type RequestOptions = {
 };
 
 function getBaseUrl() {
-  return process.env.NEXT_PUBLIC_API_URL?.trim() || "https://homepro-backend-ddeh.onrender.com";
+  const envUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
+  if (envUrl) return envUrl;
+
+  // Local dev convenience: if the UI is running on localhost, call localhost backend.
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") return "http://localhost:4000";
+  }
+
+  // Default to production backend.
+  return "https://homepro-backend-ddeh.onrender.com";
 }
 
 export async function apiRequest<TResponse>(

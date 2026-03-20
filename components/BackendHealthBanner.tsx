@@ -4,7 +4,15 @@ import { useEffect, useMemo, useState } from "react";
 import { AlertTriangle, PlugZap } from "lucide-react";
 
 function getApiBaseUrl() {
-  return process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") || "https://homepro-backend-ddeh.onrender.com";
+  const envUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
+  if (envUrl) return envUrl.replace(/\/$/, "");
+
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") return "http://localhost:4000";
+  }
+
+  return "https://homepro-backend-ddeh.onrender.com";
 }
 
 export default function BackendHealthBanner() {

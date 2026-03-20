@@ -25,6 +25,10 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 Set the backend API base URL in `.env.local`:
 
 ```bash
+# Local dev
+# NEXT_PUBLIC_API_URL=http://localhost:4000
+
+# Production
 NEXT_PUBLIC_API_URL=https://homepro-backend-ddeh.onrender.com
 ```
 
